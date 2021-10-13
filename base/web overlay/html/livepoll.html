@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hi Beddle!</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 80px Helvetica, Arial; }
+      #info { list-style-type: none; margin: 0; padding: 0; }
+      #info li { padding: 5px 10px; width:100% }
+      td, th {
+        background-color: #dddddd;
+        text-align: left;
+        padding: 5px;
+      }
+      table {
+        width:100%;
+        border-spacing: 0px 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <table id="info">
+      <tr>
+        <td id="first">_</td>
+      </tr>
+      <tr>
+        <td id="second">_</td>
+      </tr>
+      <tr>
+        <td id="third">_</td>
+      </tr>
+    </table>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        socket.on('update', function(msg){
+          msg = msg.msg
+          console.log(msg);
+          if(msg.length >= 1){$('#first').html($('<li>').text(msg[0].count+" | "+msg[0].message))};
+          if(msg.length >= 2){$('#second').html($('<li>').text(msg[1].count+" | "+msg[1].message))};
+          if(msg.length >= 3){$('#third').html($('<li>').text(msg[2].count+" | "+msg[2].message))};
+        });
+
+      });
+    </script>
+  </body>
+</html>
